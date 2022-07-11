@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <input type="text" placeholder="请输入内容" @keyup.enter="showInfo" /> -->
+      <!-- <input type="text" placeholder="请输入内容" @keyup.tab="showInfo" /> 
+         这里不起作用 因为tab是失去焦点触发不了keyup,如果使用tab事件，需要使用keydown -->
+      <input type="text" placeholder="请输入内容" @keydown.tab="showInfo" />
+      <input type="text" placeholder="请输入内容" @keyup.huiche="showInfo" />
+      <!--只用按住ctrl+y才有反应-->
+      <input type="text" placeholder="请输入内容" @keyup.ctrl.y="showInfo" />
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      Vue.config.keyCodes.huiche = 13;
+      let vm = new Vue({
+        el: "#app",
+        data: {
+          name: "尚硅谷",
+        },
+        methods: {
+          showInfo(e) {
+            // if (e.keyCode !== 13) {
+            //   return;
+            // }
+            console.log(e.target.value);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

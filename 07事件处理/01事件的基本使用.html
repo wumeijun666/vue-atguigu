@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>欢迎来到{{name}}学习</h2>
+      <button @click="showInfo1">点击我</button>
+      <button @click="showInfo2(77,$event)">点击我</button>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      var b ={
+        a:2,
+        say:function(){
+
+        },
+         a1(){
+
+        }
+      }
+      Vue.config.productionTip = false;
+      let vm = new Vue({
+        el: "#app",
+        data: {
+          name: "尚硅谷",
+        },
+        methods: {
+          showInfo1: () => {
+            console.log(this);
+            //console.log(vm === this);
+            //alert("华英");
+          },
+          showInfo2: (number, a) => {
+            // console.log(this);
+            console.log(number, a);
+            //console.log(vm === this);
+            //alert("华英");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

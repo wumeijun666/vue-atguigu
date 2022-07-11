@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      computed和watch之间的区别
+            a computed能完成的功能，watch都可以完成
+            b watch能完成的功能，computed不一定能完成，例如：watch可以进行异步操作
+      两个重要的小原则
+            a 被vue管理的函数，最好写成普通的函数，这样this的指向才是vm或组件实例对象
+            b 所有不被vue所管理的函数（定时器函数，ajax的回调函数，Promise的回调函数等），最好写成箭头函数，
+            这样this的指向才是vue或者组件实例对象
+    
+    -->
+    <div id="root" class="s1">
+      姓:<input type="text" v-model="firstName" /> 名:<input
+        type="text"
+        v-model="lastName"
+      />
+      姓名:<span>{{fullName}} </span>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          firstName: "张",
+          lastName: "三",
+          fullName: "张-三",
+        },
+        watch: {
+          firstName(newValue) {
+            // vue中函数我们经常说不能使用箭头函数，但是此处我们使用了箭头函数，而且必须使用箭头函数，
+            // 此处的定时器箭头函数没有自己的this，就会往外层找，而外层的this指向的是vue.
+            setTimeout(()=>{
+              this.fullName = newValue + "-" + this.lastName;
+            },1000);
+
+        /*     //错误的，此处我们使用普通函数，这里定时器不是vue调用的，而是window管理调用，
+            setTimeout(function(){
+              console.log(this);//window对象
+              this.fullName = newValue + "-" + this.lastName;
+            },1000) */
+          },
+          lastName(newValue) {
+            this.fullName = this.firstName + "-" + newValue;
+          },
+        },
+       /*  computed:{
+          fullName(){
+            // 因为计算属性用的是return返回值，当我们在这里使用定时器，相当于一个异步请求，我们在异步里面的return，计算属性无法
+            // 拿到，对于这种情况建议使用watch函数，watch不需要返回值，可以处理异步请求。 简单来说计算属性无法处理异步请求返回值。
+            setTimeout(()=>{
+              return this.firstName+'-'+this.lastName;
+            },1000)
+          }
+        } */
+      });
+    </script>
+    <style>
+      .s1 {
+        display: flex;
+        justify-content: center;
+        align-items: Center;
+      }
+    </style>
+  </body>
+</html>

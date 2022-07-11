@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root" class="s1">
+      姓:<input type="text" :model="firstName" /> 名:<input
+        type="text"
+        v-model="lastName"
+      />
+      姓名:<span>{{fullName}} </span> 姓名:<span>{{fullName}} </span> 姓名:<span
+        >{{fullName}}
+      </span>
+      姓名:<span>{{fullName}} </span>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          firstName: "张",
+          lastName: "三",
+        },
+        // computed 计算属性，或者动态的属性，它的值不在和上面data中的属性不同，上面的属性都可以在Vue._data中找到，
+        // 而它因为是计算属性不在_data中。
+        // get只有初次调用时被使用，下次调用不走get,computed的数据会在缓存中保存，下次直接从缓存中取出来。
+        // 如果所依赖的计算数据(fistName,lastName)发生变化时，将会再出出发get被调用。
+        computed: {
+          fullName: {
+            get() {
+              console.log("get被调用了");
+              return this.firstName + this.lastName;
+            },
+            //如果fullName属性需要被修改必须加set方法(不加报错)，如果不需要被修改只是拿来使用，可以不添加set方法
+            // set(newName) {
+            //   console.log("set被调用了");
+            //   this.lastName = newName;
+            // },
+          },
+        },
+      });
+    </script>
+    <style>
+      .s1 {
+        display: flex;
+        justify-content: center;
+        align-items: Center;
+      }
+    </style>
+  </body>
+</html>

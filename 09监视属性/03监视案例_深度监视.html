@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <!--
+      深度监视
+        a vue的watch默认不监测对象内部值得改变（一层）
+        b 配置deep:true可以监测对象内部值得改变（多层）
+        
+
+     -->
+  <div id="app">
+    <h2>今天天气很{{info}}</h2>
+    <button @click="changeWhether">切换天气</button>
+    <br />
+    <h3>a的值是:{{numbers.a}}</h3>
+    <button @click="numbers.a++">a+1</button>
+    <h3>b的值是:{{numbers.b}}</h3>
+    <button @click="numbers.b++">a+1</button>
+  </div>
+  <script src="../vue2.js"></script>
+  <script>
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        isHot: true,
+        numbers: {
+          a: 1,
+          b: 2,
+        },
+      },
+      computed: {
+        info() {
+          return this.isHot ? "热" : "冷";
+        },
+      },
+      methods: {
+        changeWhether() {
+          this.isHot = !this.isHot;
+        },
+        addA() { },
+      },
+      watch: {
+        // 既可以检测普通属性也可以监测计算属性
+        // 上面是原始写法，但是一般我们key 从来不包引号，所以可以用下面的写法
+        isHot: {
+          immediate: true,
+          handler(newValue, oldValue) {
+            console.log("isHot被修改了", newValue, oldValue);
+          },
+        },
+        // 监视多级结构某个属性变化
+        "numbers.a": {
+          immediate: true,
+          handler(newValue, oldValue) {
+            console.log("a被修改了", newValue, oldValue);
+          },
+        },
+        "numbers.b": {
+          immediate: true,
+          handler(newValue, oldValue) {
+            console.log("b被修改了", newValue, oldValue);
+          },
+        },
+        /*    这样写 a,b的值改变检测不了，因为改变的是 他里面属性的值，但是这里检测的是numbers
+           对象，即它的地址值，但是地址值一直没变化，如果需要检测对象里面属性是否变化，需要添加
+           深度监测
+        numbers:{
+          handler(newValue, oldValue) {
+            console.log("numbers被修改了");
+          },
+        }
+         */
+        numbers: {
+          deep: true,
+          handler(newValue, oldValue) {
+            console.log("numbers被修改了");
+          },
+        },
+      },
+    });
+
+    /*
+    // 也可以这样绑定
+     vm.$watch("isHot", {
+      immediate: true,
+      handler(newValue, oldValue) {
+        console.log("isHot被修改了", newValue, oldValue);
+      },
+    }); */
+  </script>
+</body>
+
+</html>

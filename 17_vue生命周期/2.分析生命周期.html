@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>引出生命周期</title>
+	<!-- 引入Vue -->
+	<script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<h2>{{n}}</h2>
+		<button v-on:click="add()">按钮</button>
+		<button @click="destoryClick()">销毁vm</button> 
+	</div>
+</body>
+
+<script type="text/javascript">
+	Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+	vm = new Vue({
+		el: "#app",
+		// template: `<div id="app" :x="n">
+		// <h2>{{n}}</h2>
+		// <button v-on:click="add()">按钮11</button>
+		// </div>`,
+		data: {
+			n: 1
+		},
+		methods: {
+			add() {
+				console.log("add")
+				this.n++;
+			},
+			destoryClick(){
+				console.log("销毁")
+				this.$destroy()
+			}
+		},
+		watch:{
+			n(){
+				console.log("watch n change")
+			}
+		},
+		beforeCreate() {
+			console.log("beforeCreated...")
+		},
+		created() {
+			console.log("created...")
+		},
+		beforeMount() {
+			console.log("beforeMount...")
+		},
+		mounted() {
+			console.log("mounted...")
+			console.log('mo的this',this)
+			// debugger;
+		},
+		beforeUpdate() {
+			console.log("beforeUpdate")
+		},
+		updated() {
+			console.log("updated")
+			// console.log(this)
+			// debugger
+		},
+		beforeDestroy() {
+			console.log("before	destroy")
+			this.add()
+		},
+		destroyed() {
+			console.log("destroy")
+			console.log(this)
+			debugger
+		},
+	})
+</script>
+
+</html>

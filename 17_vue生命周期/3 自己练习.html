@@ -1,0 +1,48 @@
+
+	<!DOCTYPE html>
+	<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>引出生命周期</title>
+		<!-- 引入Vue -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<h2>{{ n }}</h2>
+			<button v-on:click="add()">按钮</button>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+	vm = new Vue({
+		el: "#app",
+		data() {
+			return {
+				n:2
+			}
+		},
+		methods: {
+			add(){
+				this.n++;
+			}
+		},
+		watch: {
+			n(newValue){	
+				console.log("n的值="+this.n)
+			}
+		},
+		// computed: {
+		// 	// 下面错误的 ，computed 不能计算data中存在的属性值 The computed property "n" is already defined in data.
+		// 	n(){
+		// 		return ++n;
+		// 	}
+		// },
+	})
+	</script>
+
+	</html>

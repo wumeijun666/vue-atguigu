@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--
+      深度监视
+        a vue的watch默认不监测对象内部值得改变（一层）
+        b 配置deep:true可以监测对象内部值得改变（多层）
+        
+
+     -->
+    <div id="app">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeWhether">切换天气</button>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          isHot: true,
+          numbers: {
+            a: 1,
+            b: 2,
+          },
+        },
+        computed: {
+          info() {
+            return this.isHot ? "热" : "冷";
+          },
+        },
+        methods: {
+          changeWhether() {
+            this.isHot = !this.isHot;
+          },
+          addA() {},
+        },
+        watch: {
+          // 如果你需要深度监测，或者需要加载页面马上监测，就需要用下面这种写法，如果不需要深度或者马上监测
+          // 那么你可以采用简写的方式
+          isHot: {
+            deep: true,
+            immediate: true,
+            handler(newValue, oldValue) {
+              console.log("isHot被修改了", newValue, oldValue);
+            },
+          },
+          // 简写方式
+          // isHot(newValue, oldValue) {
+          //   console.log("isHot被修改了", newValue, oldValue);
+          // },
+        },
+      });
+
+      //绑定的简写方式
+      vm.$watch("isHot", function (newValue, oldValue) {
+        console.log("isHot被修改了", newValue, oldValue);
+      });
+    </script>
+  </body>
+</html>

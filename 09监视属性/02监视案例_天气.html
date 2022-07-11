@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeWhether">切换天气</button>
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          isHot: true,
+        },
+        computed: {
+          info() {
+            return this.isHot ? "热" : "冷";
+          },
+        },
+        methods: {
+          changeWhether() {
+            this.isHot = !this.isHot;
+          },
+        },
+        watch: {
+          // 既可以检测普通属性也可以监测计算属性
+          // 上面是原始写法，但是一般我们key 从来不包引号，所以可以用下面的写法
+          isHot: {
+            // immediate: true,
+            handler(newValue, oldValue) {
+              console.log("isHot被修改了", newValue, oldValue);
+            },
+          },
+          info: {
+            // immediate: true,
+            handler(newValue, oldValue) {
+              console.log("info被修改了", newValue, oldValue);
+            },
+          },
+        },
+      });
+
+    /*
+      // 也可以这样绑定
+       vm.$watch("isHot", {
+        immediate: true,
+        handler(newValue, oldValue) {
+          console.log("isHot被修改了", newValue, oldValue);
+        },
+      }); */
+    </script>
+  </body>
+</html>

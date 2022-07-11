@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root" class="s1">
+      姓:<input type="text" v-model="firstName" /> 名:<input
+        type="text"
+        v-model="lastName"
+      />
+      <!-- 姓名:<span>{{firstName.slice(0,3)}}{{lastName}} </span> -->
+      {{a}} 全名{{fullName}}
+    </div>
+    <script src="../vue2.js"></script>
+    <script>
+      Vue.config.productionTip = false;
+      vm = new Vue({
+        el: "#root",
+        data: {
+          firstName: "zs0",
+          lastName: "ss",
+          a: 2,
+          fullName: "",
+        },
+        watch: {
+          a: {
+            // immediate:true,
+            handler(newValue, oldValue) {
+              console.log("a", newValue, oldValue);
+            },
+          },
+          firstName(newName, oldName) {
+            this.fullName = newName + " " + this.lastName;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
