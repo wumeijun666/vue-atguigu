@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let number = 19;
+      let person = {
+        name: "张三",
+        sex: "男",
+      };
+      Object.defineProperty(person, "age", {
+        get() {
+          console.log("有人读取age");
+          return number;
+        },
+        set: function (newNumber) {
+          console.log("有人设置age");
+          number = newNumber;
+        },
+        configurable: true, // 属性是否可以被删除 delete person.age
+        enumerable: true, // 熟悉是否可以被枚举
+        // writable:true // 属性是否可以被修改
+      });
+      console.log(person);
+    </script>
+  </body>
+</html>
