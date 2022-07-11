@@ -5158,6 +5158,7 @@
       }
 
       var Sub = function VueComponent (options) {
+        console.log("aaa")
         this._init(options);
       };
       Sub.prototype = Object.create(Super.prototype);

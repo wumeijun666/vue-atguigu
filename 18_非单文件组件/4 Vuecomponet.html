@@ -31,9 +31,13 @@
 		-->
         <div id="root">
             <school></school>
+            <hello></hello>
         </div>
         <script>
             Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+            const test =Vue.extend({
+                template:`<span>11</span>`
+            })
 
             //定义school组件
             const school =Vue.extend({
@@ -41,6 +45,8 @@
                     <div>
                         <h2>学校地址 {{ name }}</h2>
                         <h2>学校名字 {{ address }}</h2>
+                        <Button @click="showName">按钮</Button>
+                        <test></test>
                     </div>
                 `,
                 data() {
@@ -49,14 +55,35 @@
                         address:"北京"
                     }
                 },
+                components:{test},
+                methods: {
+                    showName(){
+                        console.log("vc",this)
+                    }
+                },
             })   
+
+            const hello =  Vue.extend({
+                template:`<h2>{{msg}}</h2>`,
+                data(){
+                    return{
+                        msg:"你好啊"
+                    }
+                }
+            })
+            
+            // console.log('@',school)
+            // console.log('#',hello)
 
            vm = new Vue({
                 el:'#root',
                 components:{
-                    school
+                    school,
+                    hello
                 }
             })
+
+            console.log(vm)
         </script>
     </body>
 
