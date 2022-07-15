@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <stu></stu>
-        <sch></sch>
-    </div>
+  <div>
+    <stu></stu>
+    <sch></sch>
+  </div>
 </template>
 
 <script>
@@ -10,17 +10,15 @@
 import sch from './School.vue'
 import stu from './Student.vue'
 export default {
-    name: 'app',
-    data() {
-        return {
-
-        }
-    },
-    components: {
-        sch, stu
-    }
+  name: 'app',
+  data() {
+    return {}
+  },
+  components: {
+    sch,
+    stu,
+  },
 }
 </script>
 
-<style>
-</style>
+<style></style>

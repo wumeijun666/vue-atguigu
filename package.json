@@ -1,5 +1,24 @@
 {
-  "dependencies": {
-    "eslint": "^8.19.0"
-  }
+  "name": "vue2_atguigu",
+  "version": "1.0.0",
+  "main": "dayjs.min.js",
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "prettier": "^2.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wumeijun666/vue-atguigu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wumeijun666/vue-atguigu/issues"
+  },
+  "homepage": "https://github.com/wumeijun666/vue-atguigu#readme",
+  "description": ""
 }
